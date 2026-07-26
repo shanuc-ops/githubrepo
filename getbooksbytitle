@@ -1,0 +1,23 @@
+// Get all books based on title
+public_users.get('/title/:title', function (req, res) {
+  const titleParam = req.params.title;
+  const matchingBooks = [];
+  const keys = Object.keys(books);
+
+  // Iterate through books object and match title
+  keys.forEach((key) => {
+    if (books[key].title.toLowerCase() === titleParam.toLowerCase()) {
+      matchingBooks.push({
+        isbn: key,
+        author: books[key].author,
+        reviews: books[key].reviews
+      });
+    }
+  });
+
+  if (matchingBooks.length > 0) {
+    return res.status(200).send(JSON.stringify({ booksbytitle: matchingBooks }, null, 4));
+  } else {
+    return res.status(404).json({ message: "No books found with this title" });
+  }
+});
