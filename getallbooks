@@ -1,0 +1,11 @@
+const express = require('express');
+const public_users = express.Router();
+let books = require("./booksdb.js"); // Ensure this path matches your file structure
+
+// Get the book list available in the shop
+public_users.get('/', function (req, res) {
+  // Send the books object neatly formatted as JSON
+  return res.status(200).send(JSON.stringify(books, null, 4));
+});
+
+module.exports.general = public_users;
