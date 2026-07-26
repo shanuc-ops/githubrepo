@@ -1,0 +1,14 @@
+// Add or modify a book review
+regd_users.put("/auth/review/:isbn", (req, res) => {
+  const isbn = req.params.isbn;
+  let review = req.query.review;
+  const username = req.session.authorization.username;
+
+  if (books[isbn]) {
+    // Add or update the review under the logged-in user's name
+    books[isbn].reviews[username] = review;
+    return res.status(200).send(`The review for the book with ISBN ${isbn} has been added/updated.`);
+  } else {
+    return res.status(404).json({ message: "Book not found" });
+  }
+});
